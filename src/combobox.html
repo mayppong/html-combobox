@@ -21,11 +21,11 @@
 <script type="text/javascript">
   "use strict";
   
-  var comboboxProto = {
+  var comboboxPrototype = {
     __proto__: Object.create(HTMLElement.prototype),
     createdCallback: function() {
       this._buildShadowDOMs();
-      this.onclick = this._showOptions;
+      this._setupEvents();
       return this;
     },
     _buildShadowDOMs: function() {
@@ -35,10 +35,30 @@
       
       return this;
     },
-    _showOptions: function() {
+    _setupEvents: function() {
+      this.addEventListener('click', this._clickEventDelegation);
+      return this;
+    },
+    _clickEventDelegation: function(event) {
+      console.log(event);
+      switch( event.target.nodeName ) {
+        case "COMBO-BOX":
+          this._showOptions(event);
+          break;
+        case "LI" :
+          this._selectOption(event);
+          break;
+      }
+    },
+    _showOptions: function(event) {
+      console.log(this);
       this.shadowRoot.querySelector('ul').style.display = 'block';
+      return this;
+    },
+    _selectOption: function(event) {
+      return this;
     }
   };
 
-  var combobox = document.registerElement('combo-box', {prototype: comboboxProto});
+  var combobox = document.registerElement('combo-box', {prototype: comboboxPrototype});
 </script>
