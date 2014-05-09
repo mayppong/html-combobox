@@ -1,0 +1,44 @@
+<template>
+  <style>
+    input { margin-right: 0; }
+    button { margin-left: 0; }
+    ul { 
+      border: 1px solid #ccc;
+      display: none; 
+      list-style: none;
+      margin: 0 0 0 2px; 
+      padding: 0.5em 0.5em; 
+      width: 168px;
+    }
+    ::content li:hover { background-color: blue; }
+  </style>
+  <input type=text /> <button>&#x25BC</button> 
+  <ul> 
+    <content select="li"> </content> 
+  </ul>
+</template>
+
+<script type="text/javascript">
+  "use strict";
+  
+  var comboboxProto = {
+    __proto__: Object.create(HTMLElement.prototype),
+    createdCallback: function() {
+      this._buildShadowDOMs();
+      this.onclick = this._showOptions;
+      return this;
+    },
+    _buildShadowDOMs: function() {
+      var shadowRoot = this.createShadowRoot();
+      var template = document.querySelector("template");
+      shadowRoot.appendChild(template.content.cloneNode(true));
+      
+      return this;
+    },
+    _showOptions: function() {
+      this.shadowRoot.querySelector('ul').style.display = 'block';
+    }
+  };
+
+  var combobox = document.registerElement('combo-box', {prototype: comboboxProto});
+</script>
