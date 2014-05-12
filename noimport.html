@@ -27,46 +27,47 @@
   <script type="text/javascript">
     "use strict";
     
-    var comboboxPrototype = {
-      __proto__: Object.create(HTMLElement.prototype),
-      createdCallback: function() {
-        this._buildShadowDOMs();
-        this._setupEvents();
-        return this;
-      },
-      _buildShadowDOMs: function() {
-        var shadowRoot = this.createShadowRoot();
-        var template = document.querySelector("template");
-        shadowRoot.appendChild(template.content.cloneNode(true));
-        
-        return this;
-      },
-      _setupEvents: function() {
-        this.addEventListener('click', this._clickEventDelegation);
-        return this;
-      },
-      _clickEventDelegation: function(event) {
-        console.log(event);
-        switch( event.target.nodeName ) {
-          case "COMBO-BOX":
-            this._showOptions(event);
-            break;
-          case "LI" :
-            this._selectOption(event);
-            break;
+    var combobox = {
+      template: document.currentScript.ownerDocument.querySelector('template'),
+      prototype : {
+        __proto__: Object.create(HTMLElement.prototype),
+        createdCallback: function() {
+          this._buildShadowDOMs();
+          this._setupEvents();
+          return this;
+        },
+        _buildShadowDOMs: function() {
+          var shadowRoot = this.createShadowRoot();
+          //var template = comboboxTemplate.querySelector("template");
+          shadowRoot.appendChild(combobox.template.content.cloneNode(true));
+          
+          return this;
+        },
+        _setupEvents: function() {
+          this.addEventListener('click', this._clickEventDelegation);
+          return this;
+        },
+        _clickEventDelegation: function(event) {
+          switch( event.target.nodeName ) {
+            case "COMBO-BOX":
+              this._showOptions(event);
+              break;
+            case "LI" :
+              this._selectOption(event);
+              break;
+          }
+        },
+        _showOptions: function(event) {
+          this.shadowRoot.querySelector('ul').style.display = 'block';
+          return this;
+        },
+        _selectOption: function(event) {
+          return this;
         }
-      },
-      _showOptions: function(event) {
-        console.log(this);
-        this.shadowRoot.querySelector('ul').style.display = 'block';
-        return this;
-      },
-      _selectOption: function(event) {
-        return this;
       }
     };
 
-    var combobox = document.registerElement('combo-box', {prototype: comboboxPrototype});
+    document.registerElement('combo-box', {prototype: combobox.prototype});
   </script>
 
 </head>
