@@ -65,4 +65,18 @@
   };
 
   document.registerElement('combo-box', {prototype: combobox.prototype});
+
+
+  var comboboxController = {
+    extClickHandler: function(event) {
+      if( event.target.nodeName !== 'COMBO-BOX' && event.target.parentNode.nodeName !== 'COMBO-BOX' ) {
+        var comboboxes = document.querySelectorAll('combo-box');
+        for( var ind = 0; ind < comboboxes.length; ind++ ) {
+          comboboxes[ind].shadowRoot.querySelector('ul').style.display = 'none';
+        }
+      }
+    }
+  }
+  document.addEventListener( "click", comboboxController.extClickHandler );
+
 </script>

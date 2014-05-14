@@ -43,11 +43,15 @@ module( 'User Interaction', {
   }
 });
 
-  test( 'the options are displayed when combo-box element is clicked on', function() {
+  test( 'the options list view is toggled when combo-box element is clicked on or unfocused', function() {
     jQuery('combo-box').click();
     var ul = document.querySelector('combo-box').shadowRoot.querySelector('ul');
 
-    ok( jQuery(ul).css('display') !== 'none', 'the ul is displayed.');
+    ok( jQuery(ul).css('display') !== 'none', 'the ul is displayed when the user clicks on the combo-box.');
+
+    jQuery('body').click();
+
+    equal( jQuery(ul).css('display'), 'none', 'the ul is hidden again when the user clicks on the body of the page.' );
   });
 
   test( 'the value of the selected option is placed in the input field', function() {
