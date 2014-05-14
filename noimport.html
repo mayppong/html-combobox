@@ -62,6 +62,9 @@
           return this;
         },
         _selectOption: function(event) {
+          var selectedOption = event.target;
+          var thisBox = selectedOption.parentNode;
+          thisBox.shadowRoot.querySelector('input').value = selectedOption.innerHTML;
           return this;
         }
       }
