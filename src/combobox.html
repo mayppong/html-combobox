@@ -19,10 +19,30 @@
 </template>
 
 <script type="text/javascript">
+  // Let's not be silly here. This is some dangerous breakage waiting to happen.
   "use strict";
-  
-  var combobox = {
+
+  var ComboBoxElement = {
+    /**
+     * Save the template into a property for re-use.
+     */
     template: document.currentScript.ownerDocument.querySelector('template'),
+    /**
+     * The controller is for global-scope methods.
+     */
+    controller: {
+      unfocus: function(event) {
+        if( event.target.nodeName !== 'COMBO-BOX' && event.target.parentNode.nodeName !== 'COMBO-BOX' ) {
+          var comboboxes = document.querySelectorAll('combo-box');
+          for( var ind = 0; ind < comboboxes.length; ind++ ) {
+            comboboxes[ind].shadowRoot.querySelector('ul').style.display = 'none';
+          }
+        }
+      }
+    },
+    /**
+     * The prototype should handle functionality specific to each individual element.
+     */
     prototype : {
       __proto__: Object.create(HTMLElement.prototype),
       createdCallback: function() {
@@ -32,9 +52,7 @@
       },
       _buildShadowDOMs: function() {
         var shadowRoot = this.createShadowRoot();
-        //var template = comboboxTemplate.querySelector("template");
-        shadowRoot.appendChild(combobox.template.content.cloneNode(true));
-        
+        shadowRoot.appendChild(ComboBoxElement.template.content.cloneNode(true));
         return this;
       },
       _setupEvents: function() {
@@ -64,19 +82,9 @@
     }
   };
 
-  document.registerElement('combo-box', {prototype: combobox.prototype});
-
-
-  var comboboxController = {
-    extClickHandler: function(event) {
-      if( event.target.nodeName !== 'COMBO-BOX' && event.target.parentNode.nodeName !== 'COMBO-BOX' ) {
-        var comboboxes = document.querySelectorAll('combo-box');
-        for( var ind = 0; ind < comboboxes.length; ind++ ) {
-          comboboxes[ind].shadowRoot.querySelector('ul').style.display = 'none';
-        }
-      }
-    }
-  }
-  document.addEventListener( "click", comboboxController.extClickHandler );
+  // Register the element, like Superhuman Registration Act.
+  document.registerElement('combo-box', {prototype: ComboBoxElement.prototype});
+  // Add click listener for handling all of the combobox elements
+  document.addEventListener( "click", ComboBoxElement.controller.unfocus );
 
 </script>
