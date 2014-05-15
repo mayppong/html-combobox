@@ -17,7 +17,7 @@ module( 'Init', {
     var shadowDOM = document.querySelector('combo-box').shadowRoot;
 
     ok( shadowDOM.querySelector('input'), 'found and input field.' );
-    ok( shadowDOM.querySelector('button'), 'found the button.' );
+    equal( shadowDOM.querySelector('span').innerHTML, String.fromCharCode(9660), 'found the arrow character.' );
     ok( shadowDOM.querySelector('ul'), 'found the ul holder.' )
   });
 
