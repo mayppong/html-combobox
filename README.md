@@ -40,6 +40,5 @@ The project is set up with qUnit framework for testing. Since it uses the link i
 - [ ] Make sure combobox data is submitted with the form
 - [ ] Suggest autocomplete when user typing
 
-
-- [ ] Update the styling of the ul element so it shows up directly under the input box and not spanning the entire width
+- [ ] Update the styling of the ul element
 - [ ] Style the highlighting of option on hover
