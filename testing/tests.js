@@ -54,10 +54,12 @@ module( 'User Interaction', {
     equal( jQuery(ul).css('display'), 'none', 'the ul is hidden again when the user clicks on the body of the page.' );
   });
 
-  test( 'the value of the selected option is placed in the input field', function() {
+  test( 'selecting options', function() {
     var cbox = document.querySelector('combo-box');
+    var ul   = cbox.shadowRoot.querySelector('ul');
     jQuery(cbox).click();
     var selectedValue = jQuery('li:first', cbox).click().text();
 
     equal( cbox.shadowRoot.querySelector('input').value, selectedValue, 'the selected value is added to the input field' );
+    equal( jQuery(ul).css('display'), 'none', 'the option listing is hidden.' );
   });
