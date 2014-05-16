@@ -75,7 +75,6 @@
       },
       _showOptions: function(event) {
         this.shadowRoot.querySelector('ul').style.display = 'block';
-        return this;
       },
       _hideOptions: function(event) {
         this.shadowRoot.querySelector('ul').style.display = 'none';
@@ -85,7 +84,6 @@
         var thisBox = selectedOption.parentNode;
         thisBox.shadowRoot.querySelector('input').value = selectedOption.innerHTML;
         this._hideOptions(event);
-        return this;
       }
     }
   };
