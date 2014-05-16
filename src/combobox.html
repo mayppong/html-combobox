@@ -1,11 +1,10 @@
 <template>
   <style>
-    :host {
-      position: relative;
-    }
-    input { padding-right: 1em; }
-    span { font-size: x-small; position: relative; right: 2em; } 
+    :host { position: relative; }
+    input { margin: 0; padding-left: 2px; padding-right: 1em; }
+    span  { font-size: x-small; position: relative; right: 2em; } 
     ul { 
+      background-color: white;
       border: 1px solid #ccc;
       display: none; 
       list-style: none;
@@ -14,8 +13,8 @@
       position: absolute;
       width: 100%;
     }
-    ::content li { padding-left: 4px; } 
-    ::content li:hover { background-color: blue; }
+    ::content li { font: 13px 'Arial'; padding-left: 3px; } 
+    ::content li:hover { background-color: #ccc; color: white;}
   </style>
   <input type=text /> <span>&#9660;</span> 
   <ul> 
