@@ -60,9 +60,11 @@ module( 'User Interaction', {
   test( 'selecting options', function() {
     var cbox = document.querySelector('combo-box');
     var ul   = cbox.shadowRoot.querySelector('ul');
-    jQuery(cbox).click();
-    var selectedValue = jQuery('li:first', cbox).click().text();
+    var focusin = new FocusEvent('focusin');
+    var mousedown = new MouseEvent("mousedown");
 
-    equal( cbox.shadowRoot.querySelector('input').value, selectedValue, 'the selected value is added to the input field' );
-    equal( jQuery(ul).css('display'), 'none', 'the option listing is hidden.' );
+    cbox.dispatchEvent(focusin);
+    cbox.querySelector('li').dispatchEvent(mousedown);
+
+    equal( cbox.shadowRoot.querySelector('input').value, 'Canada', 'the selected value is added to the input field' );
   });
