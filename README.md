@@ -36,9 +36,8 @@ The project is set up with qUnit framework for testing. Since it uses the link i
 - [x] Setup event handler (delegation? probably)
 - [x] When a user select an item from the list, it should populate the shadow input field
 - [x] Hide the list when user clicks elsewhere
-- [ ] Hide other lists when the user click on a different combobox
+- [x] Hide other lists when the user click on a different combobox
+- [x] Update the styling of the ul element
+- [x] Style the highlighting of option on hover
 - [ ] Make sure combobox data is submitted with the form
 - [ ] Suggest autocomplete when user typing
-
-- [ ] Update the styling of the ul element
-- [ ] Style the highlighting of option on hover
