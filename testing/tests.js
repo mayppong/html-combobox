@@ -30,7 +30,7 @@ module( 'Init', {
 module( 'User Interaction', {
   setup: function() {
     var cbox = "\
-    <combo-box>\
+    <combo-box id='test-one'>\
       <li>Canada</li>\
       <li>America</li>\
       <li>Thailand</li>\
@@ -43,15 +43,29 @@ module( 'User Interaction', {
   }
 });
 
-  test( 'the options list view is toggled when combo-box element is clicked on or unfocused', function() {
+  test( 'the options list visibility is toggled on click and unfocus', function() {
     jQuery('combo-box').click();
-    var ul = document.querySelector('combo-box').shadowRoot.querySelector('ul');
+    var ul1 = document.querySelector('#test-one').shadowRoot.querySelector('ul');
 
-    ok( jQuery(ul).css('display') !== 'none', 'the ul is displayed when the user clicks on the combo-box.');
+    ok( jQuery(ul1).css('display') !== 'none', 'the ul is displayed when the user clicks on the combo-box.');
 
     jQuery('body').click();
 
-    equal( jQuery(ul).css('display'), 'none', 'the ul is hidden again when the user clicks on the body of the page.' );
+    equal( jQuery(ul1).css('display'), 'none', 'the ul is hidden again when the user clicks on the body of the page.' ); 
+
+    var cbox2 = "\
+    <combo-box id='test-two'>\
+      <li>Nanaimo</li>\
+      <li>Victoria</li>\
+      <li>Vancouver</li>\
+    </combo-box>\
+    ";
+    jQuery("body").append(cbox2);
+    jQuery("#test-one").click();
+    jQuery("#test-two").click();
+    var ul2 = document.querySelector('#test-two').shadowRoot.querySelector('ul');
+    equal( jQuery(ul1).css('display'), 'none', 'the ul of the first element is hidden after the second element is clicked' );
+    equal( jQuery(ul2).css('display'), 'block', 'the ul of the second element stay displayed' );
   });
 
   test( 'selecting options', function() {

@@ -35,11 +35,15 @@
      * The controller is for global-scope methods.
      */
     controller: {
+      /**
+       * Hide all comboboxes' options that wasn't clicked on.
+       */
       unfocus: function(event) {
-        if( event.target.nodeName !== 'COMBO-BOX' && event.target.parentNode.nodeName !== 'COMBO-BOX' ) {
-          var comboboxes = document.querySelectorAll('combo-box');
-          for( var ind = 0; ind < comboboxes.length; ind++ ) {
-            comboboxes[ind].shadowRoot.querySelector('ul').style.display = 'none';
+        var comboboxes = document.querySelectorAll('combo-box');
+        for( var ind = 0; ind < comboboxes.length; ind++ ) {
+          var ul = comboboxes[ind].shadowRoot.querySelector('ul');
+          if( event.target !== comboboxes[ind] ) {
+            ul.style.display = 'none';
           }
         }
       }
