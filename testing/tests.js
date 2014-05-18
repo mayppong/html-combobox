@@ -45,15 +45,15 @@ module( 'User Interaction', {
 });
 
   test( 'the options list visibility is toggled on focus and blur', function() {
-    var focusin = new FocusEvent('focusin');
-    var focusout = new FocusEvent('focusout');
-    var cbox = document.querySelector('#test-one');
+    var focus = new FocusEvent('focus');
+    var blur  = new FocusEvent('blur');
+    var cbox  = document.querySelector('#test-one');
 
-    cbox.dispatchEvent(focusin);
+    cbox.dispatchEvent(focus);
     var ul = cbox.shadowRoot.querySelector('ul');
     ok( jQuery(ul).css('display') !== 'none', 'the ul is displayed when the combo-box gains focus.');
 
-    cbox.dispatchEvent(focusout);
+    cbox.dispatchEvent(blur);
     equal( jQuery(ul).css('display'), 'none', 'the ul is hidden again when the combobox loses focus.' ); 
   });
 

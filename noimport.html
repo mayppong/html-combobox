@@ -53,9 +53,9 @@
           return this;
         },
         _setupEvents: function() {
-          this.addEventListener('click', this._clickEventDelegation);
-          this.addEventListener('focusin', this._showOptions);
-          this.addEventListener('focusout', this._hideOptions);
+          this.addEventListener('mousedown', this._clickEventDelegation);
+          this.addEventListener('focus', this._showOptions);
+          this.addEventListener('blur', this._hideOptions);
           return this;
         },
         _clickEventDelegation: function(event) {
