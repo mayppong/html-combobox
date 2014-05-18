@@ -38,23 +38,6 @@
        */
       template: document.currentScript.ownerDocument.querySelector('template'),
       /**
-       * The controller is for global-scope methods.
-       */
-      controller: {
-        /**
-         * Hide all comboboxes' options that wasn't clicked on.
-         */
-        unfocus: function(event) {
-          var comboboxes = document.querySelectorAll('combo-box');
-          for( var ind = 0; ind < comboboxes.length; ind++ ) {
-            var ul = comboboxes[ind].shadowRoot.querySelector('ul');
-            if( event.target !== comboboxes[ind] ) {
-              ul.style.display = 'none';
-            }
-          }
-        }
-      },
-      /**
        * The prototype should handle functionality specific to each individual element.
        */
       prototype : {
@@ -71,13 +54,12 @@
         },
         _setupEvents: function() {
           this.addEventListener('click', this._clickEventDelegation);
+          this.addEventListener('focusin', this._showOptions);
+          this.addEventListener('focusout', this._hideOptions);
           return this;
         },
         _clickEventDelegation: function(event) {
           switch( event.target.nodeName ) {
-            case "COMBO-BOX":
-              this._showOptions(event);
-              break;
             case "LI" :
               this._selectOption(event);
               break;
@@ -93,29 +75,26 @@
           var selectedOption = event.target;
           var thisBox = selectedOption.parentNode;
           thisBox.shadowRoot.querySelector('input').value = selectedOption.innerHTML;
-          this._hideOptions(event);
         }
       }
     };
 
     // Register the element, like Superhuman Registration Act.
     document.registerElement('combo-box', {prototype: ComboBoxElement.prototype});
-    // Add click listener for handling all of the combobox elements
-    document.addEventListener( "click", ComboBoxElement.controller.unfocus );
 
   </script>
 
 </head>
 <body>
 
-  <combo-box>
+  <combo-box id="test-one">
     <li>Canada</li>
     <li>USA</li>
     <li>Thailand</li>
   </combo-box>
 
 
-  <combo-box>
+  <combo-box id="test-two">
     <li>Victoria</li>
     <li>Vancouver</li>
     <li>Nanaimo</li>
