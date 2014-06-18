@@ -47,26 +47,33 @@
         return this;
       },
       _setupEvents: function() {
-        this.addEventListener('mousedown', this._clickEventDelegation);
-        this.addEventListener('focus', this._showOptions);
-        this.addEventListener('blur', this._hideOptions);
+        this.addEventListener('mousedown', this._clickHandler);
+        this.addEventListener('focus', this._focusHandler);
+        this.addEventListener('blur', this._blurHandler);
         return this;
       },
-      _clickEventDelegation: function(event) {
-        switch( event.target.nodeName ) {
+      _clickHandler: function(event) {
+        var e = { target: event.target };
+        switch( e.target.nodeName ) {
           case "LI" :
-            this._selectOption(event);
+            this._selectOption(e);
             break;
         }
       },
-      _showOptions: function(event) {
+      _focusHandler: function(event) {
+        this._showOptions();
+      },
+      _blurHandler: function(event) {
+        this._hideOptions();
+      },
+      _showOptions: function() {
         this.shadowRoot.querySelector('ul').style.display = 'block';
       },
-      _hideOptions: function(event) {
+      _hideOptions: function() {
         this.shadowRoot.querySelector('ul').style.display = 'none';
       },
-      _selectOption: function(event) {
-        var selectedOption = event.target;
+      _selectOption: function(e) {
+        var selectedOption = e.target;
         var thisBox = selectedOption.parentNode;
         thisBox.shadowRoot.querySelector('input').value = selectedOption.innerHTML;
       }
